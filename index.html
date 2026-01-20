@@ -384,18 +384,46 @@
             left: 0;
             width: 100%;
             height: 80px;
-            background-image: url('mai_sit_on_line_horizontal_transparent.png');
-            background-repeat: repeat-x;
-            background-position: bottom center;
-            background-size: auto 100%;
             pointer-events: none;
             z-index: 95;
+            overflow: hidden;
+        }
+
+        .mai-branch {
+            position: absolute;
+            bottom: 0;
+            height: 100%;
+            width: 150px;
+            background-image: url('mai_sit_on_line_horizontal_transparent.png');
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-size: contain;
             opacity: 0.7;
+            animation: gentleWindBranch 6s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        @keyframes gentleWindBranch {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg);
+            }
+            25% { 
+                transform: translateY(-4px) rotate(1deg);
+            }
+            50% { 
+                transform: translateY(-7px) rotate(-1.5deg);
+            }
+            75% { 
+                transform: translateY(-3px) rotate(0.8deg);
+            }
         }
 
         @media (max-width: 768px) {
             .bottom-mai-layer {
                 height: 60px;
+            }
+            .mai-branch {
+                width: 100px;
             }
         }
 
@@ -874,6 +902,55 @@
             for (let i = 0; i < 12; i++) {
                 setTimeout(createPetal, i * 120);
             }
+        })();
+
+        // Hiệu ứng cành mai phủ đáy - từng phần tử lung lay riêng
+        (function () {
+            const container = document.querySelector('.bottom-mai-layer');
+            if (!container) return;
+
+            const screenWidth = window.innerWidth;
+            const branchWidth = 150;
+            const branchCount = Math.ceil(screenWidth / (branchWidth * 0.7)) + 2;
+
+            for (let i = 0; i < branchCount; i++) {
+                const branch = document.createElement('div');
+                branch.className = 'mai-branch';
+                
+                const leftPosition = (i * branchWidth * 0.7) - (branchWidth * 0.2);
+                branch.style.left = leftPosition + 'px';
+                
+                // Random animation delay và duration cho mỗi cành
+                const randomDelay = Math.random() * 4;
+                const randomDuration = 5 + Math.random() * 4;
+                branch.style.animationDelay = randomDelay + 's';
+                branch.style.animationDuration = randomDuration + 's';
+                
+                container.appendChild(branch);
+            }
+
+            // Cập nhật khi resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    container.innerHTML = '';
+                    const newScreenWidth = window.innerWidth;
+                    const newBranchCount = Math.ceil(newScreenWidth / (branchWidth * 0.7)) + 2;
+                    
+                    for (let i = 0; i < newBranchCount; i++) {
+                        const branch = document.createElement('div');
+                        branch.className = 'mai-branch';
+                        const leftPosition = (i * branchWidth * 0.7) - (branchWidth * 0.2);
+                        branch.style.left = leftPosition + 'px';
+                        const randomDelay = Math.random() * 4;
+                        const randomDuration = 5 + Math.random() * 4;
+                        branch.style.animationDelay = randomDelay + 's';
+                        branch.style.animationDuration = randomDuration + 's';
+                        container.appendChild(branch);
+                    }
+                }, 200);
+            });
         })();
     </script>
 </body>
