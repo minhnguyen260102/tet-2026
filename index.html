@@ -388,6 +388,121 @@
             z-index: 50;
         }
 
+        /* Cánh hoa mai rơi */
+        #petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px) rotateZ(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotateZ(360deg);
+            }
+        }
+
+        /* Lá mai */
+        .pots {
+            position: absolute;
+            width: 90px;
+            bottom: 20px;
+            right: 10%;
+        }
+
+        .pots img {
+            position: absolute;
+        }
+
+        .pots .leaf {
+            bottom: 75px;
+            max-width: none;
+        }
+
+        /* Animation cho từng nhánh lá */
+        @keyframes swing-1 { 50% { transform: rotate(1deg); } }
+        @keyframes swing-2 { 50% { transform: rotate(-2deg); } }
+        @keyframes swing-3 { 50% { transform: rotate(3deg); } }
+        @keyframes swing-4 { 50% { transform: rotate(-4deg); } }
+        @keyframes swing-5 { 50% { transform: rotate(5deg); } }
+        @keyframes swing-6 { 50% { transform: rotate(-6deg); } }
+        @keyframes swing-7 { 50% { transform: rotate(7deg); } }
+
+        /* Các lá cây */
+        .pots .leaf-1 {
+            width: 100px;
+            right: 20%;
+            z-index: 9;
+            transform-origin: right bottom;
+            animation: swing-1 5s linear infinite;
+        }
+
+        .pots .leaf-2 {
+            width: 100px;
+            right: -20%;
+            z-index: 8;
+            transform-origin: bottom;
+            animation: swing-2 5s linear infinite;
+        }
+
+        .pots .leaf-3 {
+            width: 150px;
+            right: 65%;
+            z-index: 7;
+            transform-origin: right bottom;
+            animation: swing-3 5s linear infinite;
+        }
+
+        .pots .leaf-4 {
+            width: 120px;
+            right: -75%;
+            z-index: 6;
+            transform-origin: left bottom;
+            animation: swing-4 5s linear infinite;
+        }
+
+        .pots .leaf-5 {
+            width: 160px;
+            left: -45%;
+            z-index: 5;
+            transform-origin: bottom;
+            animation: swing-5 5s linear infinite;
+        }
+
+        .pots .leaf-6 {
+            width: 140px;
+            left: 45%;
+            z-index: 4;
+            transform-origin: left bottom;
+            animation: swing-6 5s linear infinite;
+        }
+
+        .pots .leaf-7 {
+            width: 130px;
+            right: 45%;
+            z-index: 3;
+            transform-origin: right bottom;
+            animation: swing-7 5s linear infinite;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 80px 20px 40px;
@@ -452,6 +567,7 @@
     <div class="bg-decorations" id="bgDecorations"></div>
     <canvas id="particles"></canvas>
     <canvas id="fireworks"></canvas>
+    <div id="petals-container"></div>
 
     <!-- Ảnh trang trí góc trên -->
     <img class="corner-decoration corner-left" src="Mai004.png" alt="Trang trí Tết">
@@ -688,6 +804,42 @@
                 }, i * 500);
             }
         }, 1000);
+
+        // Hiệu ứng cánh hoa mai rơi
+        (function () {
+            const container = document.getElementById('petals-container');
+            if (!container) return;
+
+            function createPetal() {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+
+                const size = Math.random() * 6 + 6;
+                const duration = Math.random() * 3 + 4;
+                
+                // Random chọn 1 trong 3 ảnh lá mai
+                const leafImages = ['Hieuungmai001.png', 'Hieuungmai002.png', 'Hieuungmai003.png'];
+                const randomLeaf = leafImages[Math.floor(Math.random() * leafImages.length)];
+
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.width = petal.style.height = size + 'px';
+                petal.style.animationDuration = duration + 's';
+                petal.style.opacity = Math.random() * 0.4 + 0.4;
+                petal.style.backgroundImage = `url('${randomLeaf}')`;
+
+                container.appendChild(petal);
+
+                setTimeout(() => {
+                    petal.remove();
+                }, (duration + 1) * 1000);
+            }
+
+            setInterval(createPetal, 220);
+
+            for (let i = 0; i < 12; i++) {
+                setTimeout(createPetal, i * 120);
+            }
+        })();
     </script>
 </body>
 </html>
