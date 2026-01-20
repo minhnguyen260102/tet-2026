@@ -377,33 +377,7 @@
                 width: 150px;
             }
         }
-        /* Cành mai phủ đáy */
-        .bottom-mai-layer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 30px;
-            background-image: url('mai_sit_on_line_horizontal_transparent.png');
-            background-repeat: repeat-x;
-            background-position: bottom center;
-            background-size: auto 100%;
-            pointer-events: none;
-            z-index: 95;
-            opacity: 0.7;
-        }
 
-        @media (max-width: 768px) {
-            .bottom-mai-layer {
-                height: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .bottom-mai-layer {
-                height: 5px;
-            }
-        }
         #fireworks {
             position: fixed;
             top: 0;
@@ -594,9 +568,6 @@
     <canvas id="particles"></canvas>
     <canvas id="fireworks"></canvas>
     <div id="petals-container"></div>
-    
-    <!-- Cành mai phủ đáy -->
-    <div class="bottom-mai-layer"></div>
 
     <!-- Ảnh trang trí góc trên -->
     <img class="corner-decoration corner-left" src="Mai004.png" alt="Trang trí Tết">
@@ -878,7 +849,6 @@
     </script>
 </body>
 </html>
-
 
 
 
