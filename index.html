@@ -814,7 +814,7 @@
                 const petal = document.createElement('div');
                 petal.className = 'petal';
 
-                const size = Math.random() * 6 + 6;
+                const size = Math.random() * 15 + 20; // Tăng từ 20-35px để thấy rõ
                 const duration = Math.random() * 3 + 4;
                 
                 // Random chọn 1 trong 3 ảnh lá mai
@@ -824,7 +824,7 @@
                 petal.style.left = Math.random() * 100 + '%';
                 petal.style.width = petal.style.height = size + 'px';
                 petal.style.animationDuration = duration + 's';
-                petal.style.opacity = Math.random() * 0.4 + 0.4;
+                petal.style.opacity = Math.random() * 0.3 + 0.6; // Tăng độ đậm lên 0.6-0.9
                 petal.style.backgroundImage = `url('${randomLeaf}')`;
 
                 container.appendChild(petal);
@@ -843,7 +843,6 @@
     </script>
 </body>
 </html>
-
 
 
 
