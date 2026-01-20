@@ -821,7 +821,13 @@
                 const leafImages = ['Hieuungmai001.png', 'Hieuungmai002.png', 'Hieuungmai003.png'];
                 const randomLeaf = leafImages[Math.floor(Math.random() * leafImages.length)];
 
-                petal.style.left = Math.random() * 100 + '%';
+                // Random chọn rơi từ cành mai bên trái (0-35%) hoặc bên phải (65-100%)
+                const isLeftSide = Math.random() < 0.5;
+                const leftPosition = isLeftSide 
+                    ? Math.random() * 35  // Rơi từ cành mai trái
+                    : Math.random() * 35 + 65; // Rơi từ cành mai phải
+
+                petal.style.left = leftPosition + '%';
                 petal.style.width = petal.style.height = size + 'px';
                 petal.style.animationDuration = duration + 's';
                 petal.style.opacity = Math.random() * 0.3 + 0.6; // Tăng độ đậm lên 0.6-0.9
